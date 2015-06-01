@@ -1,0 +1,34 @@
+#######################################
+# Syntax Coloring Map SD
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+I2CStepper	KEYWORD1
+I2CGyro	KEYWORD1
+I2CAccel	KEYWORD1
+I2CMagneto	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+x	KEYWORD2
+y	KEYWORD2
+z	KEYWORD2
+x_g	KEYWORD2
+y_g	KEYWORD2
+z_g	KEYWORD2
+x_ds	KEYWORD2
+y_ds	KEYWORD2
+z_ds	KEYWORD2
+init	KEYWORD2
+update	KEYWORD2
+calibrate	KEYWORD2
+describe	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
