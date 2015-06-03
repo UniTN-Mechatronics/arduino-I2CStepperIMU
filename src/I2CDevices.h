@@ -82,12 +82,15 @@ class I2CGyro : public I2CDevice {
       return _temp.i;
     };
     float temp_c();
-    double x_ds();
-    double y_ds();
-    double z_ds();
     short int x();
     short int y();
     short int z();
+    double x_ds();
+    double y_ds();
+    double z_ds();
+    double x_rs();
+    double y_rs();
+    double z_rs();
     void calibrate(int n_sample, int dly);
     void set_cal_factor(double val) {
       _cal_factor = val;

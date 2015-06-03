@@ -2,6 +2,7 @@
  * Gyro class
  */
 #import "I2CDevices.h"
+#define DEG_TO_RAD 0.01745329278
 
 I2CGyro::I2CGyro(int addr) : I2CDevice(addr) {
   _data = {0, 0, 0};
@@ -11,7 +12,7 @@ I2CGyro::I2CGyro() : I2CDevice(0x68) {
   _data = {0, 0, 0};
   _offset[0] = _offset[1] = _offset[2] = 0;
   _temp.i = 0;
-  _cal_factor = 2000.0 / pow(2, 16);
+  _cal_factor = 0.06956521739;
 }
 
 
@@ -65,6 +66,18 @@ double I2CGyro::y_ds() {
 
 double I2CGyro::z_ds() {
   return z() * _cal_factor;
+}
+
+double I2CGyro::x_rs() {
+  return x_ds() * DEG_TO_RAD;
+}
+
+double I2CGyro::y_rs() {
+  return y() * DEG_TO_RAD;
+}
+
+double I2CGyro::z_rs() {
+  return z() * DEG_TO_RAD;
 }
 
 
