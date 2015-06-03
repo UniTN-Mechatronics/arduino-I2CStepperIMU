@@ -52,7 +52,7 @@ I2CStepper::I2CStepper(int addr) : I2CDevice(addr) { }
 
 void I2CStepper::set_speed(char speed) {
   char sign = (speed >= 0 ? 'S' : 's');
-  send_cmd(sign, speed);
+  send_cmd(sign, abs(speed));
 }
 
 void I2CStepper::speed_ctrl(bool enable, byte val) {
