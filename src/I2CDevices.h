@@ -38,6 +38,7 @@ class I2CStepper : public I2CDevice {
   public:
     I2CStepper(int addr);
     void set_speed(char speed);
+    void set_speed(double speed);
     void speed_ctrl(bool enable);
     void speed_ctrl(bool enable, byte val);
     void speed_ctrl(bool enable, double val);

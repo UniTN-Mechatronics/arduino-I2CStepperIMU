@@ -55,6 +55,11 @@ void I2CStepper::set_speed(char speed) {
   send_cmd(sign, abs(speed));
 }
 
+void I2CStepper::set_speed(double speed) {
+  char sign = (speed >= 0 ? 'S' : 's');
+  send_cmd(sign, abs(char(speed)));
+}
+
 void I2CStepper::speed_ctrl(bool enable, byte val) {
   send_cmd(enable ? 'R' : 'r', val);
 }
