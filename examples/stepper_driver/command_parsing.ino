@@ -98,6 +98,13 @@ int command_parsing(char ch, int v) {
       v = 0;
       PROMPT;
       break;
+    case 'x':
+      Serial.end();
+      v = 0;
+    case 'X':
+      Serial.begin(115200);
+      v = 0;
+      PROMPT;
     default:
       v = 0;
       PROMPT;
