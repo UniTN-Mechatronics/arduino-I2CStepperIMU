@@ -27,7 +27,10 @@ class I2CDevice {
       return _addr;
     }
     void table(unsigned short n);
+    void set_cmd_delay(int val) {_cmd_delay = val;};
+    int  cmd_delay() {return _cmd_delay;};
   protected:
+    int _cmd_delay;
     int _addr;
 };
 

@@ -6,6 +6,7 @@
 
 I2CDevice::I2CDevice(int addr) {
   _addr = addr;
+  _cmd_delay = 0;
   Wire.begin();
 }
 
@@ -14,14 +15,16 @@ void I2CDevice::send_cmd(char cmd, char value) {
   Wire.write(cmd);
   Wire.write(value);
   Wire.endTransmission();
-  delay(5);
+  if (_cmd_delay > 0)
+    delay(_cmd_delay);
 }
 
 void I2CDevice::send_cmd(char cmd) {
   Wire.beginTransmission(_addr);
   Wire.write(cmd);
   Wire.endTransmission();
-  delay(5);
+  if (_cmd_delay > 0)
+    delay(_cmd_delay);
 }
 
 void I2CDevice::table(unsigned short n) {
