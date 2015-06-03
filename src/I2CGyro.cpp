@@ -17,10 +17,10 @@ I2CGyro::I2CGyro() : I2CDevice(0x68) {
 
 
 void I2CGyro::init() {
-  send_cmd(0x3E, 0x80);
-  send_cmd(0x16, 0x1B);
+  send_cmd(0x3E, 0x80); // Reset default
+  send_cmd(0x16, 0x19); // Low Pass filter at 188Hz
   send_cmd(0x15, 0x04); // 1kHz / (n+1) = f
-  send_cmd(0x3E, 0x01);
+  send_cmd(0x3E, 0x01); // select X Gyro for clock reference
 }
 
 void I2CGyro::update() {
