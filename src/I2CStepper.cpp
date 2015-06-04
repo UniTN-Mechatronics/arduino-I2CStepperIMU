@@ -27,14 +27,15 @@ void I2CDevice::send_cmd(char cmd) {
     delay(_cmd_delay);
 }
 
-void I2CDevice::table(unsigned short n) {
+void I2CDevice::table(unsigned short n = 256) {
+  byte b;
   send_cmd(0x00);
   Wire.requestFrom(_addr, n);
-  byte b;
   for (unsigned short i = 0; i < n; i++) {
     if (i % 16 == 0) {
       Serial.println();
       Serial.print(i, HEX);
+      Serial.print(": ");
     }
     b = (byte)Wire.read();
     Serial.print(" ");
@@ -43,6 +44,32 @@ void I2CDevice::table(unsigned short n) {
   Serial.println();
 }
 
+void I2CTriaxial::get_xyz(double coord[3]) {
+  coord[0] = x();
+  coord[1] = y();
+  coord[2] = z();
+}
+
+// Radial coord
+double I2CTriaxial::r() {
+  return sqrt(pow(x(), 2) + pow(y(), 2) + pow(z(), 2));
+}
+
+// Azimuthal coord
+double I2CTriaxial::theta() {
+  return atan2(y(), x());
+}
+
+// Polar coord
+double I2CTriaxial::phi() {
+  return acos(z() / r());
+}
+
+void I2CTriaxial::get_spherical(double coord[3]) {
+  coord[0] = r();
+  coord[1] = atan2(y(), x());
+  coord[2] = acos(z()/coord[0]);
+}
 
 
 /*

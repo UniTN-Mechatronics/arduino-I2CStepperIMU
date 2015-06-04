@@ -43,6 +43,8 @@ short int I2CMagneto::z() {
   return - _data.i[1];
 }
 
+
+
 void I2CMagneto::describe() {
   Serial.print(" MAGNETO@0x");
   Serial.print(_addr, HEX);

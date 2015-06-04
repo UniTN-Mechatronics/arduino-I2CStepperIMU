@@ -34,7 +34,19 @@ class I2CDevice {
     int _addr;
 };
 
-class I2CStepper : public I2CDevice {
+class I2CTriaxial {
+  public:
+    double x() {};
+    double y() {};
+    double z() {};
+    void get_xyz(double coord[3]);
+    double r();
+    double theta();
+    double phi();
+    void get_spherical(double coord[3]);
+};
+
+class I2CStepper : public I2CDevice, public I2CTriaxial {
   public:
     I2CStepper(int addr);
     void set_speed(char speed);
@@ -76,7 +88,7 @@ class I2CAccel : public I2CDevice {
 
 };
 
-class I2CGyro : public I2CDevice {
+class I2CGyro : public I2CDevice, public I2CTriaxial {
   public:
     I2CGyro(int addr);
     I2CGyro();
@@ -114,7 +126,7 @@ class I2CGyro : public I2CDevice {
     } _temp;
 };
 
-class I2CMagneto : public I2CDevice {
+class I2CMagneto : public I2CDevice, public I2CTriaxial {
   public:
     I2CMagneto(int addr);
     I2CMagneto();
