@@ -5,10 +5,12 @@
 
 I2CMagneto::I2CMagneto(int addr) : I2CDevice(addr) {
   _data = {0, 0, 0};
+  _north = 0.0;
 }
 
 I2CMagneto::I2CMagneto() : I2CDevice(0x1E) {
   _data = {0, 0, 0};
+  _north = 0.0;
 }
 
 
@@ -41,6 +43,43 @@ short int I2CMagneto::y() {
 
 short int I2CMagneto::z() {
   return - _data.i[1];
+}
+
+void I2CMagneto::get_xyz(double coord[3]) {
+  coord[0] = double(x());
+  coord[1] = double(y());
+  coord[2] = double(z());
+}
+
+// Radial coord
+double I2CMagneto::r() {
+  return sqrt(pow(x(), 2) + pow(y(), 2) + pow(z(), 2));
+}
+
+// Azimuthal coord
+double I2CMagneto::theta() {
+  return atan2(double(y()), double(x())) - _north;
+}
+
+// Polar coord
+double I2CMagneto::phi() {
+  return acos(double(z()) / double(r()));
+}
+
+void I2CMagneto::get_spherical(double coord[3]) {
+  coord[0] = r();
+  coord[1] = atan2(y(), x());
+  coord[2] = acos(z()/coord[0]);
+}
+
+void I2CMagneto::calibrate(int n_sample, int dly) {
+  _north = 0.0;
+  for (int i = 0; i < n_sample; i++) {
+    update();
+    _north += atan2(double(y()), double(x()));
+    delay(dly);
+  }
+  _north /= double(n_sample);
 }
 
 

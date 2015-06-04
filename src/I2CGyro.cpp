@@ -80,6 +80,32 @@ double I2CGyro::z_rs() {
   return z() * DEG_TO_RAD;
 }
 
+void I2CGyro::get_xyz(double coord[3]) {
+  coord[0] = double(x());
+  coord[1] = double(y());
+  coord[2] = double(z());
+}
+
+// Radial coord
+double I2CGyro::r() {
+  return sqrt(pow(x(), 2) + pow(y(), 2) + pow(z(), 2));
+}
+
+// Azimuthal coord
+double I2CGyro::theta() {
+  return atan2(double(y()), double(x()));
+}
+
+// Polar coord
+double I2CGyro::phi() {
+  return acos(double(z()) / double(r()));
+}
+
+void I2CGyro::get_spherical(double coord[3]) {
+  coord[0] = r();
+  coord[1] = atan2(y(), x());
+  coord[2] = acos(z()/coord[0]);
+}
 
 void I2CGyro::calibrate(int n_sample, int dly) {
   double cal = 0.0;

@@ -8,8 +8,7 @@
 #define BAUD 9600
 #define PROMPT Serial.println(">");
 
-//MyStepper left(0xA);
-//MyStepper right(0xB);
+
 I2CAccel accel  = I2CAccel(); // default 0x53
 I2CGyro  gyro   = I2CGyro();  // default 0x68
 I2CMagneto magn = I2CMagneto();
@@ -25,22 +24,25 @@ void setup() {
   Serial.print("Calibration...");
   accel.calibrate(50, 2);
   gyro.calibrate(50, 2);
+  magn.calibrate(50, 2);
   Serial.println("done.");
   PROMPT;
 }
 
 void loop() {
   accel.update();
-  accel.describe();
-  
-  Serial.print(" - ");
-
   gyro.update();
-  gyro.describe();
-
-  Serial.print(" - ");
-
   magn.update();
+
+  Serial.print(magn.theta() / PI * 180.0);
+  Serial.print("+");
+  Serial.print(magn.north() / PI * 180.0);
+  Serial.print(" ");
+
+  accel.describe();
+  Serial.print(" - ");
+  gyro.describe();
+  Serial.print(" - ");
   magn.describe();
 
   Serial.println();

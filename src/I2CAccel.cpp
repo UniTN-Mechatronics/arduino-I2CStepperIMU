@@ -65,6 +65,33 @@ double I2CAccel::a_g() {
   return a() / _cal_factor;
 }
 
+void I2CAccel::get_xyz(double coord[3]) {
+  coord[0] = double(x());
+  coord[1] = double(y());
+  coord[2] = double(z());
+}
+
+// Radial coord
+double I2CAccel::r() {
+  return sqrt(pow(x(), 2) + pow(y(), 2) + pow(z(), 2));
+}
+
+// Azimuthal coord
+double I2CAccel::theta() {
+  return atan2(double(y()), double(x()));
+}
+
+// Polar coord
+double I2CAccel::phi() {
+  return acos(double(z()) / double(r()));
+}
+
+void I2CAccel::get_spherical(double coord[3]) {
+  coord[0] = r();
+  coord[1] = atan2(y(), x());
+  coord[2] = acos(z()/coord[0]);
+}
+
 double I2CAccel::calibrate(int n_sample, int dly) {
   double cal = 0.0;
   for (int i = 0; i < n_sample; i++) {
