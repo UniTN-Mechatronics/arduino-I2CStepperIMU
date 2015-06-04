@@ -34,7 +34,7 @@ void loop() {
   gyro.update();
   magn.update();
 
-  Serial.print(magn.theta() / PI * 180.0);
+  Serial.print((magn.theta() - magn.north())/ PI * 180.0);
   Serial.print("+");
   Serial.print(magn.north() / PI * 180.0);
   Serial.print(" ");

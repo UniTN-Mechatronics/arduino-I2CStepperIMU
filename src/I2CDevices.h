@@ -34,17 +34,17 @@ class I2CDevice {
     int _addr;
 };
 
-// class I2CTriaxial {
-//   public:
-//     short int x() {return 1;};
-//     short int y() {return 1;};
-//     short int z() {return 1;};
-//     void get_xyz(double coord[3]);
-//     double r();
-//     double theta();
-//     double phi();
-//     void get_spherical(double coord[3]);
-// };
+class I2CTriaxial {
+  public:
+    virtual short int x() {};
+    virtual short int y() {};
+    virtual short int z() {};
+    void get_xyz(double coord[3]);
+    double r();
+    double theta();
+    double phi();
+    void get_spherical(double coord[3]);
+};
 
 class I2CStepper : public I2CDevice {
   public:
@@ -62,7 +62,7 @@ class I2CStepper : public I2CDevice {
     int _addr;
 };
 
-class I2CAccel : public I2CDevice {
+class I2CAccel : public I2CDevice, public I2CTriaxial {
   public:
     I2CAccel(int addr);
     I2CAccel();
@@ -76,11 +76,6 @@ class I2CAccel : public I2CDevice {
     double z_g();
     double a();
     double a_g();
-    void get_xyz(double c[3]);
-    double r();
-    double theta();
-    double phi();
-    void get_spherical(double c[3]);
     double calibrate(int n_sample, int dly);
     void set_cal_factor(double val) {
       _cal_factor = val;
@@ -93,7 +88,7 @@ class I2CAccel : public I2CDevice {
 
 };
 
-class I2CGyro : public I2CDevice {
+class I2CGyro : public I2CDevice, public I2CTriaxial {
   public:
     I2CGyro(int addr);
     I2CGyro();
@@ -112,11 +107,6 @@ class I2CGyro : public I2CDevice {
     double x_rs();
     double y_rs();
     double z_rs();
-    void get_xyz(double c[3]);
-    double r();
-    double theta();
-    double phi();
-    void get_spherical(double c[3]);
     void calibrate(int n_sample, int dly);
     void set_cal_factor(double val) {
       _cal_factor = val;
@@ -136,7 +126,7 @@ class I2CGyro : public I2CDevice {
     } _temp;
 };
 
-class I2CMagneto : public I2CDevice {
+class I2CMagneto : public I2CDevice, public I2CTriaxial {
   public:
     I2CMagneto(int addr);
     I2CMagneto();
@@ -145,11 +135,7 @@ class I2CMagneto : public I2CDevice {
     short int x();
     short int y();
     short int z();
-    void get_xyz(double c[3]);
-    double r();
-    double theta();
-    double phi();
-    void get_spherical(double c[3]);
+    double north() { return _north; };
     void calibrate(int n_sample, int dly);
     void set_cal_factor(double val) {
       _cal_factor = val;
@@ -157,7 +143,6 @@ class I2CMagneto : public I2CDevice {
     double cal_factor() {
       return _cal_factor;
     };
-    double north() {return _north;};
     void describe();
     void describe(int mod);
   private:

@@ -44,6 +44,33 @@ void I2CDevice::table(unsigned short n = 256) {
   Serial.println();
 }
 
+void I2CTriaxial::get_xyz(double coord[3]) {
+  coord[0] = x();
+  coord[1] = y();
+  coord[2] = z();
+}
+
+// Radial coord
+double I2CTriaxial::r() {
+  return sqrt(pow(x(), 2) + pow(y(), 2) + pow(z(), 2));
+}
+
+// Azimuthal coord
+double I2CTriaxial::theta() {
+  return atan2(y(), x());
+}
+
+// Polar coord
+double I2CTriaxial::phi() {
+  return acos(z() / r());
+}
+
+void I2CTriaxial::get_spherical(double coord[3]) {
+  coord[0] = r();
+  coord[1] = atan2(y(), x());
+  coord[2] = acos(z()/coord[0]);
+}
+
 
 /*
  * Stepper motor class
