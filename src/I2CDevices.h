@@ -44,6 +44,9 @@ class I2CTriaxial {
     double theta();
     double phi();
     void get_spherical(double coord[3]);
+    void get_raw_data(vec_data_t &data) {data = _data;};
+  protected:
+    vec_data_t _data;
 };
 
 class I2CStepper : public I2CDevice {
@@ -83,9 +86,6 @@ class I2CAccel : public I2CDevice, public I2CTriaxial {
     void describe();
   private:
     double _cal_factor;
-
-    vec_data_t _data;
-
 };
 
 class I2CGyro : public I2CDevice, public I2CTriaxial {
@@ -119,7 +119,6 @@ class I2CGyro : public I2CDevice, public I2CTriaxial {
   private:
     double _cal_factor;
     short int _offset[3];
-    vec_data_t _data;
     union temp_data {
       short int i;
       byte c[2];
@@ -148,7 +147,6 @@ class I2CMagneto : public I2CDevice, public I2CTriaxial {
   private:
     double _north;
     double _cal_factor;
-    vec_data_t _data;
 };
 
 #endif
