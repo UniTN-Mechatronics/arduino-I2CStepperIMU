@@ -1,8 +1,10 @@
 /*
  * Gyro class
  */
-#import "I2CDevices.h"
+#include "I2CDevices.h"
+#ifndef DEG_TO_RAD
 #define DEG_TO_RAD 0.01745329278
+#endif
 
 I2CGyro::I2CGyro(int addr) : I2CDevice(addr) {
   _data = {0, 0, 0};

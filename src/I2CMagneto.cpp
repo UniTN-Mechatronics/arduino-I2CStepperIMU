@@ -1,7 +1,7 @@
 /*
  * Magneto class
  */
-#import "I2CDevices.h"
+#include "I2CDevices.h"
 
 I2CMagneto::I2CMagneto(int addr) : I2CDevice(addr) {
   _data = {0, 0, 0};

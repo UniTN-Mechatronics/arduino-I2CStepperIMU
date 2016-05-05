@@ -1,7 +1,7 @@
 /*
  * General I2C device simple command interface
  */
-#import "I2CDevices.h"
+#include "I2CDevices.h"
 
 
 I2CDevice::I2CDevice(int addr) {

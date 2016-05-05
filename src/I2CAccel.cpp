@@ -1,7 +1,7 @@
 /*
  * Accel class
  */
-#import "I2CDevices.h"
+#include "I2CDevices.h"
 
 I2CAccel::I2CAccel(int addr) : I2CDevice(addr) {
   _cal_factor = double(250.0);
